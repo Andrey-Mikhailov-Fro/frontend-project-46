@@ -1,0 +1,10 @@
+name: my-workflow
+
+on: commit
+
+jobs: 
+    check:
+        runs-on: ubuntu-latest
+        steps:
+           - run: make lint
+           - run: make test

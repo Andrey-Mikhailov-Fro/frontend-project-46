@@ -1,14 +1,15 @@
 #!/usr/bin/env node
+/* eslint-disable import/extensions */
 
 import { program } from 'commander';
 import getFiles from './getFiles.js';
-import _ from 'lodash';
 import genDiff from './getdiff.js';
 
 const doDiff = () => {
   const command = (filepath1, filepath2) => {
     const collection = [filepath1, filepath2];
     const [file1, file2] = collection.map((item) => getFiles(item));
+    // eslint-disable-next-line no-console
     console.log(genDiff(file1, file2));
   };
 
