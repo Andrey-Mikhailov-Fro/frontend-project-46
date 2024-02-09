@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - run: npm ci
       - run: make lint
       - uses: paambaati/codeclimate-action@v5.0.0
         env:
