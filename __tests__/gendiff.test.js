@@ -1,21 +1,24 @@
 /* eslint-disable no-undef */
 /* eslint-disable import/extensions */
 
+import * as fs from 'node:fs';
 import genDiff from '../src/getdiff.js';
+import parse from '../src/parsers.js';
 
-const file1 = {
-  aKey: 'value1_before',
-  bKey: 'value2_before',
-};
+const file1 = parse('__fixtures__/file12.json');
 
-const file2 = {
-  aKey: 'value1_after',
-  bKey: 'value2_before',
-  cKey: 'new_value',
-};
+const file2 = parse('__fixtures__/file22.json');
 
-const diff = '{\n - aKey: value1_before,\n + aKey: value1_after,\n   bKey: value2_before,\n + cKey: new_value\n}';
+const file1YML = parse('__fixtures__/file12.yml');
 
-test('gendiff', () => {
-  expect(genDiff(file1, file2).match(diff));
+const file2YML = parse('__fixtures__/file22.yml');
+
+const diffFile = fs.readFileSync('__fixtures__/test_diff');
+
+test('gendiff_JSON', () => {
+  expect(genDiff(file1, file2).match(diffFile));
+});
+
+test('gendiff_YAML', () => {
+  expect(genDiff(file1YML, file2YML).match(diffFile));
 });

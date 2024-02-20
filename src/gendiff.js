@@ -1,27 +1,34 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 /* eslint-disable import/extensions */
 
 import { program } from 'commander';
 import parse from './parsers.js';
-import genDiff from './getdiff.js';
+import genDiff from './getDiff.js';
+import getTree from './stylish.js';
 
 const doDiff = () => {
-  const command = (filepath1, filepath2) => {
-    const collection = [filepath1, filepath2];
-    const [file1, file2] = collection.map((item) => parse(item));
-    // eslint-disable-next-line no-console
-    console.log(genDiff(file1, file2));
-  };
+  // eslint-disable-next-line prefer-const
+
+  const format = (type = 'stylish') => type;
 
   program
     .name('gendiff')
     .version('1.0.0')
-    .description('Compares two configuration files and shows a difference.')
-    .arguments('<filepath1> <filepath2>')
-    .action(command);
+    .description('Compares two configuration files and shows a difference.');
 
   program
-    .option('-f, --format [type]', 'output format');
+    .arguments('<filepath1> <filepath2>')
+    .option('-f, --format [type]', 'output format')
+    .action((filepath1, filepath2, type) => {
+      const collection = [filepath1, filepath2];
+      const [file1, file2] = collection.map((item) => parse(item));
+
+      const formatter = format(type.format);
+      if (formatter === 'stylish') {
+        console.log(getTree(genDiff(file1, file2)));
+      }
+    });
 
   program.parse();
 };
