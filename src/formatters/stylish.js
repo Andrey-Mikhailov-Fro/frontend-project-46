@@ -1,8 +1,15 @@
+import _ from 'lodash';
+
 const generateTree = (diff, depth = 1) => {
-  const space = ' '.repeat(4 * depth - 2);
+  const space = ' '.repeat(4 * depth - 3);
+  const lockSpace = ' '.repeat(4 * (depth - 1));
 
   const getValue = (data, innerDepth) => {
-    if (!(typeof data === 'object')) {
+    if (data === null) {
+      return 'null';
+    }
+
+    if (!_.isObject(data)) {
       return `${data}`;
     }
 
@@ -34,13 +41,13 @@ const generateTree = (diff, depth = 1) => {
     }
 
     if (node.state === 'changed') {
-      return [`${space}- ${node.property}: ${getValue(node.oldValue, depth + 1)}`, `${space}+ ${node.property}: ${getValue(node.newValue + 1)}`];
+      return [`${space}- ${node.property}: ${getValue(node.oldValue, depth + 1)}`, `${space}+ ${node.property}: ${getValue(node.newValue, depth + 1)}`];
     }
 
     return `${space}  ${node.property}: ${getValue(node.value)}`;
   });
 
-  const completedTree = depth === 1 ? `{\n ${tree.join('\n ')}\n}` : `{\n ${tree.join('\n ')}\n${space}}`;
+  const completedTree = depth === 1 ? `{\n ${tree.join('\n ')}\n}` : `{\n ${tree.join('\n ')}\n${lockSpace}}`;
 
   return completedTree;
 };

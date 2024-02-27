@@ -4,8 +4,10 @@
 
 import { program } from 'commander';
 import parse from './parsers.js';
-import genDiff from './getDiff.js';
-import getTree from './stylish.js';
+import getDiff from './getDiff.js';
+import getTree from './formatters/stylish.js';
+import getPlain from './formatters/plain.js';
+import getJSON from './formatters/json.js';
 
 const doDiff = () => {
   // eslint-disable-next-line prefer-const
@@ -26,7 +28,15 @@ const doDiff = () => {
 
       const formatter = format(type.format);
       if (formatter === 'stylish') {
-        console.log(getTree(genDiff(file1, file2)));
+        console.log(getTree(getDiff(file1, file2)));
+      }
+
+      if (formatter === 'plain') {
+        console.log(getPlain(getDiff(file1, file2)));
+      }
+
+      if (formatter === 'json') {
+        console.log(getJSON(getDiff(file1, file2)));
       }
     });
 

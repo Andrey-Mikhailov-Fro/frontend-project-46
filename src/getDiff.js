@@ -11,7 +11,7 @@ const getDiff = (objBefore, objAfter) => {
       return { property, state: 'added', value: objAfter[property] };
     }
 
-    if ((typeof objBefore[property] === 'object') && typeof objAfter[property] === 'object') {
+    if (_.isObject(objBefore[property]) && _.isObject(objAfter[property])) {
       return { property, state: 'complex', children: getDiff(objBefore[property], objAfter[property]) };
     }
 
