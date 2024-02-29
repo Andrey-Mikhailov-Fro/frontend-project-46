@@ -1,20 +1,23 @@
-import * as path from 'node:path';
-import process from 'node:process';
-import * as fs from 'node:fs';
 import * as yaml from 'js-yaml';
 
-const doParse = (way) => {
-  const actualPath = path.resolve(process.cwd(), way);
+const doParse = (fileContent, extension) => {
+  const parsed = [];
 
-  const fileContent = fs.readFileSync(actualPath);
-
-  const getExtension = (filepath) => filepath.split('.').pop();
-
-  if (getExtension(way) === 'yaml') {
-    return yaml.load(fileContent);
+  switch (extension) {
+    case 'yaml':
+      parsed.push(yaml.load(fileContent));
+      break;
+    case 'yml':
+      parsed.push(yaml.load(fileContent));
+      break;
+    case 'json':
+      parsed.push(JSON.parse(fileContent));
+      break;
+    default:
+      parsed.push(`Can't read file with extension ${extension}`);
   }
 
-  return JSON.parse(fileContent);
+  return parsed.pop();
 };
 
 export default doParse;
