@@ -5,7 +5,7 @@
   "type": "module",
   "main": "gendiff.js",
   "bin": {
-    "gendiff": "bin/genDiff.js"
+    "gendiff": "bin/gendiff.js"
   },
   "scripts": {
     "test": "jest"
