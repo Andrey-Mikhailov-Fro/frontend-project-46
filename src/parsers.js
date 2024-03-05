@@ -1,23 +1,16 @@
 import * as yaml from 'js-yaml';
 
 const doParse = (fileContent, extension) => {
-  const parsed = [];
-
   switch (extension) {
     case 'yaml':
-      parsed.push(yaml.load(fileContent));
-      break;
+      return yaml.load(fileContent);
     case 'yml':
-      parsed.push(yaml.load(fileContent));
-      break;
+      return yaml.load(fileContent);
     case 'json':
-      parsed.push(JSON.parse(fileContent));
-      break;
+      return JSON.parse(fileContent);
     default:
-      parsed.push(`Can't read file with extension ${extension}`);
+      throw new Error(`Can't read file with extension ${extension}`);
   }
-
-  return parsed.pop();
 };
 
 export default doParse;
