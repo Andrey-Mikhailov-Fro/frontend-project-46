@@ -29,6 +29,5 @@ program
     });
 
     console.log(gendiff(file1, file2, type.format));
-  });
-
-program.parse();
+  })
+  .parse();
