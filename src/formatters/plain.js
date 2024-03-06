@@ -14,7 +14,6 @@ const plain = (diff, currentPath = '', depth = 1) => {
   };
 
   const plainDiff = diff.flatMap((item) => {
-
     const stringifiedPath = depth === 1 ? `${item.property}` : `${currentPath}.${item.property}`;
 
     if (item.state === 'deleted') {
