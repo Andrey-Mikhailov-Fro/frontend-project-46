@@ -14,7 +14,10 @@ const doDiff = (filepath1, filepath2, typeFormat) => {
 
     const fileContent = fs.readFileSync(actualPath);
 
-    const getExtension = (filepath) => filepath.split('.').pop();
+    const getExtension = (filepath) => {
+      const [, extension] = filepath.split('.');
+      return extension;
+    };
 
     return parse(fileContent, getExtension(item));
   });

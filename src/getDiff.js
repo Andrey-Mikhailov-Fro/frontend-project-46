@@ -19,31 +19,23 @@ const getDiff = (objBefore, objAfter) => {
   const diffObj = properties.map((property) => {
     const state = determineState(objBefore, objAfter, property);
 
-    const node = [];
-
     switch (state) {
       case 'deleted':
-        node.push({ property, state, value: objBefore[property] });
-        break;
+        return { property, state, value: objBefore[property] };
       case 'added':
-        node.push({ property, state, value: objAfter[property] });
-        break;
+        return { property, state, value: objAfter[property] };
       case 'complex':
-        node.push({ property, state, children: getDiff(objBefore[property], objAfter[property]) });
-        break;
+        return { property, state, children: getDiff(objBefore[property], objAfter[property]) };
       case 'changed':
-        node.push({
+        return {
           property,
           state,
           oldValue: objBefore[property],
           newValue: objAfter[property],
-        });
-        break;
+        };
       default:
-        node.push({ property, state, value: objBefore[property] });
+        return { property, state, value: objBefore[property] };
     }
-
-    return node.pop();
   });
 
   return diffObj;

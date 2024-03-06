@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const plain = (diff, currentPath = [], depth = 1) => {
+const plain = (diff, currentPath = '', depth = 1) => {
   const getSimpleValue = (node) => {
     if (_.isObject(node)) {
       return '[complex value]';
@@ -14,13 +14,11 @@ const plain = (diff, currentPath = [], depth = 1) => {
   };
 
   const plainDiff = diff.flatMap((item) => {
-    if (depth <= currentPath.length) {
-      currentPath.splice(depth - 1);
+    if (depth <= currentPath.split('.').length) {
+      currentPath.split('.').splice(depth - 1).join('.');
     }
 
-    currentPath.push(item.property);
-
-    const stringifiedPath = [...currentPath].join('.');
+    const stringifiedPath = `${currentPath}.${item.property}`;
 
     if (item.state === 'deleted') {
       return `Property '${stringifiedPath}' was removed`;
@@ -31,7 +29,7 @@ const plain = (diff, currentPath = [], depth = 1) => {
     }
 
     if (item.state === 'complex') {
-      return plain(item.children, currentPath, depth + 1);
+      return plain(item.children, stringifiedPath, depth + 1);
     }
 
     if (item.state === 'changed') {
