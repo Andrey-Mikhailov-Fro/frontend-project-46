@@ -14,9 +14,6 @@ const plain = (diff, currentPath = '', depth = 1) => {
   };
 
   const plainDiff = diff.flatMap((item) => {
-    if (depth <= currentPath.split('.').length) {
-      currentPath.split('.').splice(depth - 1).join('.');
-    }
 
     const stringifiedPath = depth === 1 ? `${item.property}` : `${currentPath}.${item.property}`;
 
