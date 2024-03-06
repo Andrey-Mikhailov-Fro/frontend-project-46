@@ -18,7 +18,7 @@ const plain = (diff, currentPath = '', depth = 1) => {
       currentPath.split('.').splice(depth - 1).join('.');
     }
 
-    const stringifiedPath = `${currentPath}.${item.property}`;
+    const stringifiedPath = depth === 1 ? `${item.property}` : `${currentPath}.${item.property}`;
 
     if (item.state === 'deleted') {
       return `Property '${stringifiedPath}' was removed`;
