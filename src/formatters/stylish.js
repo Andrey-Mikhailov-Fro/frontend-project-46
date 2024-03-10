@@ -41,7 +41,7 @@ const generateTree = (diff, depth = 1) => {
     }
 
     if (node.state === 'changed') {
-      return [`${space}- ${node.property}: ${getValue(node.oldValue, depth + 1)}`, `${space}+ ${node.property}: ${getValue(node.newValue, depth + 1)}`];
+      return [`${space}- ${node.property}: ${getValue(node.obj1Value, depth + 1)}`, `${space}+ ${node.property}: ${getValue(node.obj2Value, depth + 1)}`];
     }
 
     return `${space}  ${node.property}: ${getValue(node.value)}`;
