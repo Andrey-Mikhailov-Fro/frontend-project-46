@@ -35,7 +35,7 @@ const generateTree = (diff, depth = 1) => {
         return `${space}+ ${node.property}: ${getValue(node.value, depth + 1)}`;
       case 'complex':
         return `${space}  ${node.property}: ${generateTree(node.children, depth + 1)}`;
-      case 'cahnged':
+      case 'changed':
         return [`${space}- ${node.property}: ${getValue(node.file1Value, depth + 1)}`, `${space}+ ${node.property}: ${getValue(node.file2Value, depth + 1)}`];
       default:
         return `${space}  ${node.property}: ${getValue(node.value)}`;
