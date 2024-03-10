@@ -1,21 +1,14 @@
 import _ from 'lodash';
 
 const determineState = (obj1, obj2, item) => {
-  const conditions = [
-    [!Object.hasOwn(obj2, item), 'deleted'],
-    [!Object.hasOwn(obj1, item), 'added'],
-    [(_.isObject(obj1[item]) && _.isObject(obj2[item])), 'complex'],
-    [(!_.isEqual(obj1[item], obj2[item])), 'changed'],
-    [(_.isEqual(obj1[item], obj2[item])), 'unchanged'],
-  ];
-
-  const [state] = conditions.map(([condition, nodeState]) => {
-    if (condition === true) {
-      return nodeState;
-    }
-
-    return '';
-  }).filter((rightState) => rightState !== '');
+  const [state] = [
+    !Object.hasOwn(obj2, item) ? 'deleted' : '',
+    !Object.hasOwn(obj1, item) ? 'added' : '',
+    (_.isObject(obj1[item]) && _.isObject(obj2[item])) ? 'complex' : '',
+    (!_.isEqual(obj1[item], obj2[item])) ? 'changed' : '',
+    (_.isEqual(obj1[item], obj2[item])) ? 'unchanged' : '',
+  ]
+    .filter((result) => result !== '');
 
   return state;
 };
