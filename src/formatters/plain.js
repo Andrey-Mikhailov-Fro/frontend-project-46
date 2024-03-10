@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
-const plain = (diff, currentPath = '', depth = 1) => {
-  const getSimpleValue = (node) => {
+const doPlainDiff = (diff, currentPath = '', depth = 1) => {
+  const getValue = (node) => {
     if (_.isObject(node)) {
       return '[complex value]';
     }
@@ -13,7 +13,7 @@ const plain = (diff, currentPath = '', depth = 1) => {
     return node;
   };
 
-  const plainDiff = diff.flatMap((item) => {
+  const plainedDiff = diff.flatMap((item) => {
     const stringifiedPath = depth === 1 ? `${item.property}` : `${currentPath}.${item.property}`;
 
     if (item.state === 'deleted') {
@@ -21,21 +21,21 @@ const plain = (diff, currentPath = '', depth = 1) => {
     }
 
     if (item.state === 'added') {
-      return `Property '${stringifiedPath}' was added with value: ${getSimpleValue(item.value)}`;
+      return `Property '${stringifiedPath}' was added with value: ${getValue(item.value)}`;
     }
 
     if (item.state === 'complex') {
-      return plain(item.children, stringifiedPath, depth + 1);
+      return doPlainDiff(item.children, stringifiedPath, depth + 1);
     }
 
     if (item.state === 'changed') {
-      return `Property '${stringifiedPath}' was updated. From ${getSimpleValue(item.oldValue)} to ${getSimpleValue(item.newValue)}`;
+      return `Property '${stringifiedPath}' was updated. From ${getValue(item.file1Value)} to ${getValue(item.file2Value)}`;
     }
 
     return null;
   }).filter((plainedString) => plainedString !== null).join('\n');
 
-  return plainDiff;
+  return plainedDiff;
 };
 
-export default plain;
+export default doPlainDiff;
