@@ -9,13 +9,13 @@ const determineState = (obj1, obj2, item) => {
     [(_.isEqual(obj1[item], obj2[item])), 'unchanged'],
   ];
 
-  const [state] = conditions.map((condition, nodeState) => {
+  const [state] = conditions.map(([condition, nodeState]) => {
     if (condition === true) {
       return nodeState;
     }
 
-    return null;
-  }).filter((rightState) => rightState !== null);
+    return '';
+  }).filter((rightState) => rightState !== '');
 
   return state;
 };
