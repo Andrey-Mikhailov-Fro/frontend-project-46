@@ -1,52 +1,52 @@
 [
     {
         "property": "common",
-        "state": "complex",
+        "changeType": "complex",
         "children": [
             {
                 "property": "follow",
-                "state": "added",
+                "changeType": "added",
                 "value": false
             },
             {
                 "property": "setting1",
-                "state": "unchanged",
+                "changeType": "unchanged",
                 "value": "Value 1"
             },
             {
                 "property": "setting2",
-                "state": "deleted",
+                "changeType": "deleted",
                 "value": 200
             },
             {
                 "property": "setting3",
-                "state": "changed",
+                "changeType": "changed",
                 "file1Value": true,
                 "file2Value": null
             },
             {
                 "property": "setting4",
-                "state": "added",
+                "changeType": "added",
                 "value": "blah blah"
             },
             {
                 "property": "setting5",
-                "state": "added",
+                "changeType": "added",
                 "value": {
                     "key5": "value5"
                 }
             },
             {
                 "property": "setting6",
-                "state": "complex",
+                "changeType": "complex",
                 "children": [
                     {
                         "property": "doge",
-                        "state": "complex",
+                        "changeType": "complex",
                         "children": [
                             {
                                 "property": "wow",
-                                "state": "changed",
+                                "changeType": "changed",
                                 "file1Value": "",
                                 "file2Value": "so much"
                             }
@@ -54,12 +54,12 @@
                     },
                     {
                         "property": "key",
-                        "state": "unchanged",
+                        "changeType": "unchanged",
                         "value": "value"
                     },
                     {
                         "property": "ops",
-                        "state": "added",
+                        "changeType": "added",
                         "value": "vops"
                     }
                 ]
@@ -68,22 +68,22 @@
     },
     {
         "property": "group1",
-        "state": "complex",
+        "changeType": "complex",
         "children": [
             {
                 "property": "baz",
-                "state": "changed",
+                "changeType": "changed",
                 "file1Value": "bas",
                 "file2Value": "bars"
             },
             {
                 "property": "foo",
-                "state": "unchanged",
+                "changeType": "unchanged",
                 "value": "bar"
             },
             {
                 "property": "nest",
-                "state": "changed",
+                "changeType": "changed",
                 "file1Value": {
                     "key": "value"
                 },
@@ -93,7 +93,7 @@
     },
     {
         "property": "group2",
-        "state": "deleted",
+        "changeType": "deleted",
         "value": {
             "abc": 12345,
             "deep": {
@@ -103,7 +103,7 @@
     },
     {
         "property": "group3",
-        "state": "added",
+        "changeType": "added",
         "value": {
             "deep": {
                 "id": {

@@ -16,7 +16,7 @@ const doPlainDiff = (diff, currentPath = '', depth = 1) => {
   const plainedDiff = diff.flatMap((item) => {
     const stringifiedPath = depth === 1 ? `${item.property}` : `${currentPath}.${item.property}`;
 
-    switch (item.state) {
+    switch (item.changeType) {
       case 'deleted':
         return `Property '${stringifiedPath}' was removed`;
       case 'added':

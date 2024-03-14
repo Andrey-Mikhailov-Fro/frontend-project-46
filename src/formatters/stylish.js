@@ -28,7 +28,7 @@ const generateTree = (diff, depth = 1) => {
   const lockSpace = ' '.repeat(4 * (depth - 1));
 
   const tree = diff.flatMap((node) => {
-    switch (node.state) {
+    switch (node.changeType) {
       case 'deleted':
         return `${space}- ${node.property}: ${getValue(node.value, depth + 1)}`;
       case 'added':
